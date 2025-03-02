@@ -1,18 +1,18 @@
 from django.db import models
 
 class Multa(models.Model):
-    codigo_infracao = models.CharField(max_length=10, primary_key=True, db_column='Código de infração')
-    infracao = models.TextField(db_column='Infração')
-    responsavel = models.CharField(max_length=100, db_column='Responsável')
-    valor_multa = models.DecimalField(max_digits=10, decimal_places=2, db_column='Valor da multa')
-    orgao_autuador = models.CharField(max_length=100, db_column='Órgão Autuador')
-    artigos_ctb = models.CharField(max_length=100, db_column='Artigos do CTB')
-    pontos = models.FloatField(db_column='pontos')
-    gravidade = models.CharField(max_length=50, db_column='gravidade')
+    código_de_infração = models.AutoField(db_column='Código de infração', primary_key=True)
+    infração = models.TextField(db_column='Infração', blank=True, null=True)
+    responsável = models.TextField(db_column='Responsável', blank=True, null=True)
+    valor_da_multa = models.TextField(db_column='Valor da multa', blank=True, null=True)
+    órgão_autuador = models.TextField(db_column='Órgão Autuador', blank=True, null=True)
+    artigos_do_ctb = models.TextField(db_column='Artigos do CTB', blank=True, null=True)
+    pontos = models.TextField(blank=True, null=True)
+    gravidade = models.TextField(blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = False  # Importante: indica que o Django não deve gerenciar esta tabela
         db_table = 'bdmultas10bd'
-        
+
     def __str__(self):
-        return f"{self.codigo_infracao} - {self.infracao}" 
+        return f"{self.código_de_infração} - {self.infração}"

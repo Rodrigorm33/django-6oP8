@@ -34,10 +34,10 @@
         {% if query %}
             {% if multas %}
                 {% for multa in multas %}
-                    <div class="result-item {{ multa.gravidade|lower }}" role="article">
+                    <div class="result-item {{ multa.gravidade_normalizada }}" role="article">
                         <div class="result-header">
                             <h3>{{ multa.codigo_infracao }}</h3>
-                            <span class="gravidade-badge {{ multa.gravidade|lower }}">{{ multa.gravidade }}</span>
+                            <span class="gravidade-badge {{ multa.gravidade_normalizada }}">{{ multa.gravidade }}</span>
                         </div>
                         <div class="result-body">
                             <p class="infracao">{{ multa.infracao }}</p>
@@ -53,6 +53,17 @@
                     <p>Nenhuma infração encontrada para "{{ query }}"</p>
                 </div>
             {% endif %}
+        {% endif %}
+    </div>
+
+    <div class="historico-buscas">
+        {% if historico %}
+        <h4>Buscas recentes:</h4>
+        <ul>
+            {% for busca in historico %}
+            <li><a href="{% url 'buscar' %}?q={{ busca|urlencode }}">{{ busca }}</a></li>
+            {% endfor %}
+        </ul>
         {% endif %}
     </div>
 {% endblock %}

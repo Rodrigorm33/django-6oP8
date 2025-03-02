@@ -158,3 +158,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleciona elementos
+    const searchForm = document.querySelector('.search-form');
+    const searchInput = document.querySelector('#search-input');
+    const filterButtons = document.querySelectorAll('.filter-button');
+
+    // Adiciona eventos aos botões de filtro
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active de todos os botões
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Adiciona active ao botão clicado
+            this.classList.add('active');
+            
+            const gravidade = this.dataset.gravidade;
+            const currentUrl = new URL(window.location.href);
+            
+            // Atualiza os parâmetros da URL
+            if (gravidade) {
+                currentUrl.searchParams.set('gravidade', gravidade);
+            } else {
+                currentUrl.searchParams.delete('gravidade');
+            }
+            
+            // Redireciona para a nova URL
+            window.location.href = currentUrl.toString();
+        });
+    });
+
+    // Melhorias na busca
+    if (searchInput) {
+        searchInput.addEventListener('input', function() {
+            this.value = this.value.toUpperCase();
+        });
+    }
+});
