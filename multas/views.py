@@ -1,21 +1,38 @@
 from django.shortcuts import render
 from .models import Multa
 from django.db.models import Q
+from django.contrib.postgres.search import TrigramSimilarity
 
 def buscar_multas(request):
-    # Inicializa a query vazia
-    query = request.GET.get('q', '')
+    # Inicializa variáveis
+    query = request.GET.get('q', '').strip()
+    gravidade = request.GET.get('gravidade', '')
     multas = []
     
-    # Realiza a busca apenas se houver um termo de pesquisa
     if query:
-        # Busca por código de infração ou descrição da infração
-        multas = Multa.objects.filter(
+        # Busca usando trigram similarity para permitir erros de digitação
+        multas = Multa.objects.annotate(
+            similarity=TrigramSimilarity('codigo_infracao', query) + 
+                      TrigramSimilarity('infracao', query)
+        ).filter(
+            Q(similarity__gt=0.3) |  # Resultados com similaridade > 0.3
             Q(codigo_infracao__icontains=query) |
             Q(infracao__icontains=query)
-        )[:50]  # Limita a 50 resultados para melhor performance
+        ).order_by('-similarity')
+
+        # Filtro por gravidade se especificado
+        if gravidade:
+            multas = multas.filter(gravidade__iexact=gravidade)
+        
+        # Limita a 50 resultados para performance
+        multas = multas[:50]
+    
+    # Obtém lista de gravidades únicas para o filtro
+    gravidades = Multa.objects.values_list('gravidade', flat=True).distinct().order_by('gravidade')
     
     return render(request, 'multas/buscar.html', {
         'query': query,
-        'multas': multas
+        'multas': multas,
+        'gravidade_selecionada': gravidade,
+        'gravidades': gravidades
     }) 
