@@ -9,9 +9,11 @@ def home(request):
     if query:
         multas = Multa.objects.filter(
             Q(codigo_infracao__icontains=query) |
-            Q(infracao__icontains=query)
+            Q(infracao__icontains=query) |
+            Q(gravidade__icontains=query)
         )
     
     return render(request, 'home.html', {
         'multas': multas,
+        'query': query,
     })

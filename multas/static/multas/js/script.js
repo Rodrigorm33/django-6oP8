@@ -137,4 +137,24 @@ document.addEventListener('DOMContentLoaded', () => {
             performSearch();
         });
     }
+
+    const filterButtons = document.querySelectorAll('.filter-button');
+    const resultItems = document.querySelectorAll('.result-item');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.classList[1]; // Get the class that represents the filter (e.g., 'gravissima', 'grave', etc.)
+            filterResults(filter);
+        });
+    });
+
+    function filterResults(filter) {
+        resultItems.forEach(item => {
+            if (item.classList.contains(filter)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
 });

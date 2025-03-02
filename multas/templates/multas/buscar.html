@@ -21,8 +21,8 @@
                        id="search-input"
                        name="q" 
                        class="search-input" 
-                       placeholder="Digite o código ou descrição da infração..."
-                       value="{{ request.GET.q|default:'' }}"
+                       placeholder="Digite o código, descrição ou gravidade da infração..."
+                       value="{{ query|default:'' }}"
                        autocomplete="off">
                 
                 <div class="filter-container">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="results">
-            {% if request.GET.q %}
+            {% if query %}
                 {% if multas %}
                     {% for multa in multas %}
                         <div class="result-item {{ multa.gravidade|lower }}" role="article">
@@ -52,5 +52,7 @@
             {% endif %}
         </div>
     </div>
+    <!-- Include the custom JavaScript -->
+    <script src="{% static 'multas/js/script.js' %}"></script>
 </body>
 </html>
