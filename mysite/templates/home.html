@@ -3,38 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bem-vindo</title>
+    <title>Consulta de Multas</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 20px;
             background-color: #f0f2f5;
         }
         .container {
+            max-width: 800px;
+            margin: 40px auto;
             text-align: center;
-            padding: 2rem;
-            background-color: white;
+        }
+        .search-box {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .result {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: left;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .result-item {
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+        .result-item:last-child {
+            border-bottom: none;
         }
         h1 {
             color: #1a73e8;
-            margin-bottom: 1rem;
+            margin-bottom: 30px;
         }
-        p {
-            color: #5f6368;
-            font-size: 1.1rem;
+        .no-results {
+            color: #666;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bem-vindo ao Nosso Site</h1>
-        <p>Esta é a página inicial do nosso projeto Django.</p>
+        <h1>Consulta de Infrações de Trânsito</h1>
+        <form method="GET" action="">
+            <input type="text" 
+                   name="q" 
+                   class="search-box" 
+                   placeholder="Digite o código ou descrição da infração"
+                   value="{{ request.GET.q|default:'' }}">
+        </form>
+
+        {% if request.GET.q %}
+            <div class="result">
+                {% if multas %}
+                    {% for multa in multas %}
+                        <div class="result-item">
+                            <h3>Código: {{ multa.codigo_infracao }}</h3>
+                            <p><strong>Infração:</strong> {{ multa.infracao }}</p>
+                            <p><strong>Valor:</strong> R$ {{ multa.valor_multa }}</p>
+                            <p><strong>Pontos:</strong> {{ multa.pontos }}</p>
+                            <p><strong>Gravidade:</strong> {{ multa.gravidade }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-results">Nenhuma infração encontrada para sua busca.</p>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
 </body>
 </html> 
