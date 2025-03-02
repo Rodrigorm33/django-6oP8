@@ -1,0 +1,251 @@
+/* Variáveis de cores */
+:root {
+    --cor-primaria: #2196F3;
+    --cor-secundaria: #4CAF50;
+    --cor-gravissima: #ff4444;
+    --cor-grave: #9370DB;
+    --cor-media: #ffbb33;
+    --cor-leve: #00C851;
+    --cor-texto: #333;
+    --cor-texto-secundario: #666;
+    --cor-fundo: #f8f9fa;
+    --cor-branco: #ffffff;
+}
+
+/* Estilos gerais */
+body {
+    background: var(--cor-fundo);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 2rem;
+    color: var(--cor-texto);
+}
+
+/* Container principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Container de pesquisa */
+.search-container {
+    background: linear-gradient(135deg, var(--cor-branco) 0%, #f8f9fa 100%);
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.8);
+}
+
+/* Título principal */
+h1 {
+    color: var(--cor-primaria);
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Campo de busca */
+.search-input {
+    border-radius: 25px !important;
+    padding: 1rem 1.5rem !important;
+    font-size: 1.1rem !important;
+    border: 2px solid #e0e0e0 !important;
+    transition: all 0.3s ease !important;
+    background: var(--cor-branco) !important;
+}
+
+.search-input:focus {
+    border-color: var(--cor-primaria) !important;
+    box-shadow: 0 0 0 0.25rem rgba(33, 150, 243, 0.25) !important;
+    transform: translateY(-2px);
+}
+
+/* Filtro de gravidade */
+.gravidade-filter {
+    border-radius: 20px !important;
+    padding: 0.8rem 1.2rem !important;
+    border: 2px solid #e0e0e0 !important;
+    background: var(--cor-branco) !important;
+    font-weight: 500 !important;
+}
+
+/* Botão de busca */
+.btn-search {
+    border-radius: 50% !important;
+    width: 50px !important;
+    height: 50px !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: linear-gradient(145deg, var(--cor-secundaria), #45a049) !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(76,175,80,0.3) !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-search:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(76,175,80,0.4) !important;
+    background: linear-gradient(145deg, #45a049, var(--cor-secundaria)) !important;
+}
+
+/* Cards de resultado */
+.card {
+    border: none !important;
+    border-radius: 15px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+    margin-bottom: 1.5rem !important;
+    transition: all 0.3s ease !important;
+    background: var(--cor-branco) !important;
+    overflow: hidden !important;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1) !important;
+}
+
+/* Estilos específicos para cada gravidade */
+.gravissima {
+    border-left: 8px solid var(--cor-gravissima) !important;
+    background: linear-gradient(to right, rgba(255,68,68,0.05), transparent) !important;
+}
+
+.grave {
+    border-left: 8px solid var(--cor-grave) !important;
+    background: linear-gradient(to right, rgba(147,112,219,0.05), transparent) !important;
+}
+
+.media {
+    border-left: 8px solid var(--cor-media) !important;
+    background: linear-gradient(to right, rgba(255,187,51,0.05), transparent) !important;
+}
+
+.leve {
+    border-left: 8px solid var(--cor-leve) !important;
+    background: linear-gradient(to right, rgba(0,200,81,0.05), transparent) !important;
+}
+
+/* Badges de gravidade */
+.gravidade-badge {
+    border-radius: 20px !important;
+    padding: 0.4rem 1rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    margin-left: 1rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
+}
+
+.badge-gravissima {
+    background: linear-gradient(145deg, var(--cor-gravissima), #ff6666) !important;
+    color: white !important;
+}
+
+.badge-grave {
+    background: linear-gradient(145deg, var(--cor-grave), #a58be0) !important;
+    color: white !important;
+}
+
+.badge-media {
+    background: linear-gradient(145deg, var(--cor-media), #ffc966) !important;
+    color: black !important;
+}
+
+.badge-leve {
+    background: linear-gradient(145deg, var(--cor-leve), #00e676) !important;
+    color: white !important;
+}
+
+/* Botão de favoritos */
+.btn-favorite {
+    border: none !important;
+    background: none !important;
+    color: #ffc107 !important;
+    font-size: 1.4rem !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+    padding: 0.5rem !important;
+    opacity: 0.7 !important;
+}
+
+.btn-favorite:hover {
+    color: #ffa000 !important;
+    transform: scale(1.2) rotate(10deg) !important;
+    opacity: 1 !important;
+}
+
+.btn-favorite .fas {
+    color: #ffa000 !important;
+    opacity: 1 !important;
+}
+
+/* Informações do card */
+.card-title {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    color: var(--cor-texto) !important;
+    margin-bottom: 1rem !important;
+}
+
+.card-text {
+    color: var(--cor-texto-secundario) !important;
+    line-height: 1.6 !important;
+    margin-bottom: 0.8rem !important;
+}
+
+.text-muted {
+    color: #888 !important;
+    font-size: 0.9rem !important;
+}
+
+/* Mensagem de nenhum resultado */
+.alert-info {
+    background: linear-gradient(145deg, #e3f2fd, #bbdefb) !important;
+    border: none !important;
+    border-radius: 15px !important;
+    color: #0d47a1 !important;
+    padding: 1.5rem !important;
+    box-shadow: 0 4px 15px rgba(33,150,243,0.1) !important;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .search-container {
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .btn-search {
+        width: 45px !important;
+        height: 45px !important;
+    }
+
+    .card-body {
+        padding: 1rem !important;
+    }
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.results-container {
+    animation: fadeIn 0.5s ease-out;
+} 
