@@ -6,4 +6,4 @@
 # 3. Cole no terminal (clique direito -> Colar)
 # 4. Pressione Enter
 #
-git add . && git commit -m "fix: ajusta ALLOWED_HOSTS para railway" && git push origin main
+git add . && git commit -m "fix: ajusta configurações de segurança e hosts" && git push origin main
