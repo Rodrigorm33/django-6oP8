@@ -1,0 +1,25 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Página Inicial - Sistema de Multas</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'multas/css/style.css' %}" rel="stylesheet">
+</head>
+<body>
+    <div class="home-container">
+        <h1>Bem-vindo ao Sistema de Multas</h1>
+        <p>Escolha uma opção abaixo:</p>
+        
+        <div class="button-container">
+            <a href="{% url 'multas:buscar' %}" class="button" title="Ir para página de busca">
+                <span class="button-text">Buscar Multas</span>
+                <i class="fas fa-search"></i>
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

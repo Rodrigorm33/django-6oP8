@@ -1,6 +1,14 @@
+<<<<<<< HEAD
 Django==5.0.2
 psycopg2-binary==2.9.9
 whitenoise==6.6.0
 gunicorn==21.2.0
 python-dotenv==1.0.1
 dj-database-url==2.1.0
+=======
+Django>=4.0.0,<5.0.0
+gunicorn==22.0.0
+psycopg2-binary==2.9.9
+whitenoise==6.6.0
+python-dotenv==1.0.0
+>>>>>>> b4030ba220eb8d341c62a99b4020f00e2ed0cbf5
