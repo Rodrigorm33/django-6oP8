@@ -1,83 +1,280 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de Multas</title>
+    <title>Sistema de Consulta de Multas</title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        :root {
+            --red: #ff4444;
+            --yellow: #ffbb33;
+            --green: #00C851;
+            --transition: all 0.3s ease;
+        }
+
+        * {
             margin: 0;
-            padding: 20px;
-            background-color: #f0f2f5;
+            padding: 0;
+            box-sizing: border-box;
         }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .traffic-lights {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .traffic-light {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .red { background-color: var(--red); animation-delay: 0s; }
+        .yellow { background-color: var(--yellow); animation-delay: 0.6s; }
+        .green { background-color: var(--green); animation-delay: 1.2s; }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
         .container {
-            max-width: 800px;
-            margin: 40px auto;
-            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
         }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--red), var(--yellow), var(--green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 5s ease infinite;
+        }
+
+        .subtitle {
+            color: #ffffff;
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .search-container {
+            max-width: 800px;
+            margin: -3rem auto 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
+        }
+
         .search-box {
             width: 100%;
-            max-width: 600px;
-            padding: 15px;
-            font-size: 16px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 1.2rem 1.5rem;
+            font-size: 1.1rem;
+            border: 2px solid #eee;
+            border-radius: 50px;
+            transition: var(--transition);
+            background: #f8f9fa;
         }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--green);
+            box-shadow: 0 0 0 3px rgba(0,200,81,0.1);
+        }
+
+        .results-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
         .result {
             background: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: left;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+            transition: var(--transition);
         }
-        .result-item {
+
+        .result:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .result-header {
+            padding: 1.5rem;
             border-bottom: 1px solid #eee;
-            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .result-item:last-child {
-            border-bottom: none;
+
+        .result-body {
+            padding: 1.5rem;
         }
-        h1 {
-            color: #1a73e8;
-            margin-bottom: 30px;
+
+        .codigo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
         }
+
+        .gravidade {
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .gravidade-gravissima { background: var(--red); color: white; }
+        .gravidade-grave { background: #9370DB; color: white; }
+        .gravidade-media { background: var(--yellow); color: black; }
+        .gravidade-leve { background: var(--green); color: white; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .info-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+        }
+
         .no-results {
+            text-align: center;
+            padding: 3rem;
             color: #666;
             font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 1rem; }
+            h1 { font-size: 2rem; }
+            .search-container { margin: -2rem 1rem 0; }
+            .results-container { padding: 0 1rem; }
+            .info-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Consulta de Infrações de Trânsito</h1>
+    <header class="header">
+        <div class="traffic-lights">
+            <div class="traffic-light red"></div>
+            <div class="traffic-light yellow"></div>
+            <div class="traffic-light green"></div>
+        </div>
+        <div class="container">
+            <div class="hero">
+                <h1>Sistema de Consulta de Infrações</h1>
+                <p class="subtitle">Consulte informações sobre infrações de trânsito de forma rápida e fácil</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="search-container">
         <form method="GET" action="">
             <input type="text" 
                    name="q" 
                    class="search-box" 
-                   placeholder="Digite o código ou descrição da infração"
-                   value="{{ request.GET.q|default:'' }}">
+                   placeholder="Digite o código ou descrição da infração..."
+                   value="{{ request.GET.q|default:'' }}"
+                   autocomplete="off">
         </form>
+    </div>
 
+    <div class="results-container">
         {% if request.GET.q %}
-            <div class="result">
-                {% if multas %}
-                    {% for multa in multas %}
-                        <div class="result-item">
-                            <h3>Código: {{ multa.codigo_infracao }}</h3>
-                            <p><strong>Infração:</strong> {{ multa.infracao }}</p>
-                            <p><strong>Valor:</strong> R$ {{ multa.valor_multa }}</p>
-                            <p><strong>Pontos:</strong> {{ multa.pontos }}</p>
-                            <p><strong>Gravidade:</strong> {{ multa.gravidade }}</p>
+            {% if multas %}
+                {% for multa in multas %}
+                    <div class="result animate__animated animate__fadeIn">
+                        <div class="result-header">
+                            <span class="codigo">{{ multa.codigo_infracao }}</span>
+                            <span class="gravidade gravidade-{{ multa.gravidade|lower }}">
+                                {{ multa.gravidade }}
+                            </span>
                         </div>
-                    {% endfor %}
-                {% else %}
-                    <p class="no-results">Nenhuma infração encontrada para sua busca.</p>
-                {% endif %}
-            </div>
+                        <div class="result-body">
+                            <p style="margin-bottom: 1rem;">{{ multa.infracao }}</p>
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="info-label">Valor da Multa</div>
+                                    <div class="info-value">R$ {{ multa.valor_multa }}</div>
+                                </div>
+                                <div class="info-item">
+                                    <div class="info-label">Pontos na CNH</div>
+                                    <div class="info-value">{{ multa.pontos }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-results animate__animated animate__fadeIn">
+                    <i class="fas fa-search" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
+                    <p>Nenhuma infração encontrada para sua busca.</p>
+                </div>
+            {% endif %}
         {% endif %}
     </div>
+
+    <!-- Font Awesome -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 </body>
 </html> 
