@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Multa
-from django.db.models import Q
+from django.db.models import Q, F
 from django.contrib.postgres.search import TrigramSimilarity
 
 def home(request):
@@ -15,8 +15,9 @@ def buscar(request):
     if query:
         # Busca usando trigram similarity para permitir erros de digitação
         multas = Multa.objects.annotate(
-            similarity=TrigramSimilarity('codigo_infracao', query) + 
-                      TrigramSimilarity('infracao', query)
+            similarity_codigo=TrigramSimilarity('codigo_infracao', query),
+            similarity_infracao=TrigramSimilarity('infracao', query),
+            similarity=F('similarity_codigo') + F('similarity_infracao')
         ).filter(
             Q(similarity__gt=0.3) |  # Resultados com similaridade > 0.3
             Q(codigo_infracao__icontains=query) |
