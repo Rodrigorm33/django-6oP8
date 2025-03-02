@@ -21,29 +21,24 @@ class Command(BaseCommand):
                 for row in reader:
                     try:
                         # Removendo espaços extras e tratando valores
-                        codigo = row['Código de infração'].strip()
-                        valor = str(row['Valor da multa']).strip()
-                        pontos = str(row['Pontos']).strip()
-                        
-                        # Criando ou atualizando o registro
                         multa, created = Multa.objects.update_or_create(
-                            codigo_infracao=codigo,
-                            defaults={
-                                'infracao': row['Infração'].strip(),
-                                'responsavel': row['Responsável'].strip(),
-                                'valor_multa': float(valor),
-                                'orgao_autuador': row['Órgão Autuador'].strip(),
-                                'artigos_ctb': row['Artigos do CTB'].strip(),
-                                'pontos': float(pontos),  # Usando float pois há valores como 5.0
+                            **{
+                                'Código de infração': row['Código de infração'].strip(),
+                                'Infração': row['Infração'].strip(),
+                                'Responsável': row['Responsável'].strip(),
+                                'Valor da multa': float(row['Valor da multa'].strip()),
+                                'Órgão Autuador': row['Órgão Autuador'].strip(),
+                                'Artigos do CTB': row['Artigos do CTB'].strip(),
+                                'pontos': float(row['Pontos'].strip()),
                                 'gravidade': row['Gravidade'].strip()
                             }
                         )
                         
                         count += 1
                         if created:
-                            self.stdout.write(f'Criada multa: {multa.codigo_infracao}')
+                            self.stdout.write(f'Criada multa: {getattr(multa, "Código de infração")}')
                         else:
-                            self.stdout.write(f'Atualizada multa: {multa.codigo_infracao}')
+                            self.stdout.write(f'Atualizada multa: {getattr(multa, "Código de infração")}')
                             
                     except Exception as e:
                         self.stderr.write(f'Erro ao processar linha: {row}. Erro: {str(e)}')
