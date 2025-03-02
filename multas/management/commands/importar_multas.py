@@ -11,7 +11,7 @@ class Command(BaseCommand):
         
         try:
             with open(arquivo, 'r', encoding='utf-8') as file:
-                # Usando ; como separador
+                # Usando ; como separador e ignorando espaços extras
                 reader = csv.DictReader(file, delimiter=';')
                 
                 # Contador de registros importados
@@ -19,17 +19,22 @@ class Command(BaseCommand):
                 
                 for row in reader:
                     try:
+                        # Removendo espaços extras e tratando valores
+                        codigo = row['Código de infração'].strip()
+                        valor = str(row['Valor da multa']).strip()
+                        pontos = str(row['Pontos']).strip()
+                        
                         # Criando ou atualizando o registro
                         multa, created = Multa.objects.update_or_create(
-                            codigo_infracao=row['Código de infração'],
+                            codigo_infracao=codigo,
                             defaults={
-                                'infracao': row['Infração'],
-                                'responsavel': row['Responsável'],
-                                'valor_multa': float(row['Valor da multa'].replace('R$', '').replace(',', '.').strip()),
-                                'orgao_autuador': row['Órgão Autuador'],
-                                'artigos_ctb': row['Artigos do CTB'],
-                                'pontos': int(row['pontos']),
-                                'gravidade': row['gravidade']
+                                'infracao': row['Infração'].strip(),
+                                'responsavel': row['Responsável'].strip(),
+                                'valor_multa': float(valor),
+                                'orgao_autuador': row['Órgão Autuador'].strip(),
+                                'artigos_ctb': row['Artigos do CTB'].strip(),
+                                'pontos': float(pontos),  # Usando float pois há valores como 5.0
+                                'gravidade': row['Gravidade'].strip()
                             }
                         )
                         
