@@ -1,81 +1,25 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Consulta de Multas</title>
+    <title>Página Inicial - Sistema de Multas</title>
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Animate.css -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="{% static 'multas/css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <div class="traffic-lights">
-            <div class="traffic-light red"></div>
-            <div class="traffic-light yellow"></div>
-            <div class="traffic-light green"></div>
+    <div class="home-container">
+        <h1>Bem-vindo ao Sistema de Multas</h1>
+        <p>Escolha uma opção abaixo:</p>
+        
+        <div class="button-container">
+            <a href="{% url 'multas:buscar' %}" class="button" title="Ir para página de busca">
+                <span class="button-text">Buscar Multas</span>
+                <i class="fas fa-search"></i>
+            </a>
         </div>
-        <div class="container">
-            <div class="hero">
-                <h1>Sistema de Consulta de Infrações</h1>
-                <p class="subtitle">Consulte informações sobre infrações de trânsito de forma rápida e fácil</p>
-            </div>
-        </div>
-    </header>
-
-    <div class="search-container">
-        <form method="GET" action="">
-            <input type="text" 
-                   name="q" 
-                   class="search-box" 
-                   placeholder="Digite o código ou descrição da infração..."
-                   value="{{ request.GET.q|default:'' }}"
-                   autocomplete="off">
-        </form>
     </div>
-
-    <div class="results-container">
-        {% if request.GET.q %}
-            {% if multas %}
-                {% for multa in multas %}
-                    <div class="result animate__animated animate__fadeIn {{ multa.gravidade|lower }}">
-                        <div class="result-header">
-                            <span class="codigo">{{ multa.codigo_infracao }}</span>
-                            <span class="gravidade gravidade-{{ multa.gravidade|lower }}">
-                                {{ multa.gravidade }}
-                            </span>
-                        </div>
-                        <div class="result-body">
-                            <p style="margin-bottom: 1rem;">{{ multa.infracao }}</p>
-                            <div class="info-grid">
-                                <div class="info-item">
-                                    <div class="info-label">Valor da Multa</div>
-                                    <div class="info-value">R$ {{ multa.valor_multa|floatformat:2 }}</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Pontos na CNH</div>
-                                    <div class="info-value">{{ multa.pontos }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="no-results animate__animated animate__fadeIn">
-                    <i class="fas fa-search" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
-                    <p>Nenhuma infração encontrada para sua busca.</p>
-                </div>
-            {% endif %}
-        {% endif %}
-    </div>
-
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 </body>
 </html> 
