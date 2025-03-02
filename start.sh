@@ -1,9 +1,15 @@
 #!/bin/bash
 
-# Executar migrações
+# Executar migrações apenas para outras apps do Django
 echo "Iniciando migrações..."
-python manage.py makemigrations multas
-python manage.py migrate
+python manage.py migrate auth
+python manage.py migrate admin
+python manage.py migrate sessions
+python manage.py migrate contenttypes
+
+# Coletar arquivos estáticos
+echo "Coletando arquivos estáticos..."
+python manage.py collectstatic --noinput
 
 # Tentar importar dados
 echo "Tentando importar dados..."
