@@ -22,13 +22,13 @@ class Command(BaseCommand):
                     try:
                         # Removendo espaços extras e tratando valores
                         multa, created = Multa.objects.update_or_create(
-                            **{
-                                'Código de infração': row['Código de infração'].strip(),
-                                'Infração': row['Infração'].strip(),
-                                'Responsável': row['Responsável'].strip(),
-                                'Valor da multa': float(row['Valor da multa'].strip()),
-                                'Órgão Autuador': row['Órgão Autuador'].strip(),
-                                'Artigos do CTB': row['Artigos do CTB'].strip(),
+                            codigo_infracao=row['Código de infração'].strip(),
+                            defaults={
+                                'infracao': row['Infração'].strip(),
+                                'responsavel': row['Responsável'].strip(),
+                                'valor_multa': float(row['Valor da multa'].strip()),
+                                'orgao_autuador': row['Órgão Autuador'].strip(),
+                                'artigos_ctb': row['Artigos do CTB'].strip(),
                                 'pontos': float(row['Pontos'].strip()),
                                 'gravidade': row['Gravidade'].strip()
                             }
@@ -36,9 +36,9 @@ class Command(BaseCommand):
                         
                         count += 1
                         if created:
-                            self.stdout.write(f'Criada multa: {getattr(multa, "Código de infração")}')
+                            self.stdout.write(f'Criada multa: {multa.codigo_infracao}')
                         else:
-                            self.stdout.write(f'Atualizada multa: {getattr(multa, "Código de infração")}')
+                            self.stdout.write(f'Atualizada multa: {multa.codigo_infracao}')
                             
                     except Exception as e:
                         self.stderr.write(f'Erro ao processar linha: {row}. Erro: {str(e)}')
