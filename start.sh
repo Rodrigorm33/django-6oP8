@@ -25,4 +25,4 @@ python manage.py collectstatic --no-input
 
 # Inicia o servidor
 echo "Iniciando o servidor Gunicorn..."
-gunicorn mysite.wsgi --log-file - 
+gunicorn mysite.wsgi --log-file -

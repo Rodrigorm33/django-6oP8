@@ -33,4 +33,4 @@ def buscar(request):
         'multas': multas,
         'gravidade_selecionada': gravidade,
         'gravidades': gravidades
-    }) 
+    })
