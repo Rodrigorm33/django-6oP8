@@ -70,9 +70,13 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# Construir DATABASE_URL a partir das variáveis individuais se não estiver definida
+if not os.environ.get('DATABASE_URL'):
+    db_url = f"postgresql://{os.environ.get('PGUSER')}:{os.environ.get('PGPASSWORD')}@{os.environ.get('PGHOST')}:{os.environ.get('PGPORT')}/{os.environ.get('PGDATABASE')}"
+    os.environ['DATABASE_URL'] = db_url
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
         conn_max_age=600,
         conn_health_checks=True,
     )
