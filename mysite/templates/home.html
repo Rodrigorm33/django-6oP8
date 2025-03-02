@@ -13,7 +13,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
         :root {
-            --red: #ff4444;
+            --red-dark: #990000;
+            --red-light: #ff4444;
             --yellow: #ffbb33;
             --green: #00C851;
             --transition: all 0.3s ease;
@@ -55,7 +56,7 @@
             animation: pulse 2s infinite;
         }
 
-        .red { background-color: var(--red); animation-delay: 0s; }
+        .red { background-color: var(--red-light); animation-delay: 0s; }
         .yellow { background-color: var(--yellow); animation-delay: 0.6s; }
         .green { background-color: var(--green); animation-delay: 1.2s; }
 
@@ -81,7 +82,7 @@
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: linear-gradient(45deg, var(--red), var(--yellow), var(--green));
+            background: linear-gradient(45deg, var(--red-light), var(--yellow), var(--green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: gradient 5s ease infinite;
@@ -134,11 +135,32 @@
             margin-bottom: 1.5rem;
             overflow: hidden;
             transition: var(--transition);
+            border-left: 5px solid transparent;
         }
 
         .result:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .result.gravissima {
+            border-left-color: var(--red-dark);
+            background: linear-gradient(to right, rgba(153,0,0,0.05) 0%, rgba(255,255,255,1) 100%);
+        }
+
+        .result.grave {
+            border-left-color: var(--red-light);
+            background: linear-gradient(to right, rgba(255,68,68,0.05) 0%, rgba(255,255,255,1) 100%);
+        }
+
+        .result.media {
+            border-left-color: var(--yellow);
+            background: linear-gradient(to right, rgba(255,187,51,0.05) 0%, rgba(255,255,255,1) 100%);
+        }
+
+        .result.leve {
+            border-left-color: var(--green);
+            background: linear-gradient(to right, rgba(0,200,81,0.05) 0%, rgba(255,255,255,1) 100%);
         }
 
         .result-header {
@@ -164,12 +186,31 @@
             border-radius: 50px;
             font-size: 0.9rem;
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        .gravidade-gravissima { background: var(--red); color: white; }
-        .gravidade-grave { background: #9370DB; color: white; }
-        .gravidade-media { background: var(--yellow); color: black; }
-        .gravidade-leve { background: var(--green); color: white; }
+        .gravidade-gravissima { 
+            background: var(--red-dark); 
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        .gravidade-grave { 
+            background: var(--red-light); 
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        .gravidade-media { 
+            background: var(--yellow); 
+            color: black;
+            font-weight: 600;
+        }
+        .gravidade-leve { 
+            background: var(--green); 
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
 
         .info-grid {
             display: grid;
@@ -243,7 +284,7 @@
         {% if request.GET.q %}
             {% if multas %}
                 {% for multa in multas %}
-                    <div class="result animate__animated animate__fadeIn">
+                    <div class="result animate__animated animate__fadeIn {{ multa.gravidade|lower }}">
                         <div class="result-header">
                             <span class="codigo">{{ multa.codigo_infracao }}</span>
                             <span class="gravidade gravidade-{{ multa.gravidade|lower }}">
