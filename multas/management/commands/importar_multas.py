@@ -20,17 +20,24 @@ class Command(BaseCommand):
                 
                 for row in reader:
                     try:
+                        # Tratando valores vazios para campos numéricos
+                        valor_multa = row['Valor da multa'].strip()
+                        valor_multa = float(valor_multa) if valor_multa else 0.0
+                        
+                        pontos = row['Pontos'].strip()
+                        pontos = float(pontos) if pontos else 0.0
+                        
                         # Removendo espaços extras e tratando valores
                         multa, created = Multa.objects.update_or_create(
                             codigo_infracao=row['Código de infração'].strip(),
                             defaults={
                                 'infracao': row['Infração'].strip(),
                                 'responsavel': row['Responsável'].strip(),
-                                'valor_multa': float(row['Valor da multa'].strip()),
+                                'valor_multa': valor_multa,
                                 'orgao_autuador': row['Órgão Autuador'].strip(),
                                 'artigos_ctb': row['Artigos do CTB'].strip(),
-                                'pontos': float(row['Pontos'].strip()),
-                                'gravidade': row['Gravidade'].strip()
+                                'pontos': pontos,
+                                'gravidade': row['Gravidade'].strip() or 'Não especificada'
                             }
                         )
                         
