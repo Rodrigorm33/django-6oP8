@@ -24,6 +24,76 @@ body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Página inicial */
+.home-container {
+    text-align: center;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    max-width: 600px;
+    width: 90%;
+}
+
+.home-container h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--red-light), var(--yellow), var(--green));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 5s ease infinite;
+}
+
+.home-container p {
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, var(--red-light), var(--yellow));
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: var(--transition);
+    box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+}
+
+.button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 68, 68, 0.4);
+}
+
+.button-text {
+    font-size: 1.1rem;
+}
+
+.button i {
+    font-size: 1.2rem;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Container principal */
@@ -72,17 +142,6 @@ body {
     text-align: center;
     padding: 4rem 0;
     color: white;
-}
-
-h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    background: linear-gradient(45deg, var(--red-light), var(--yellow), var(--green));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient 5s ease infinite;
 }
 
 .subtitle {
@@ -248,7 +307,8 @@ h1 {
     h1 { font-size: 2rem; }
     .search-container { margin: -2rem 1rem 0; }
     .results-container { padding: 0 1rem; }
-    .info-grid { grid-template-columns: 1fr 1fr; }
+    .home-container { width: 95%; padding: 1.5rem; }
+    .button { padding: 0.8rem 1.5rem; }
 }
 
 /* Animações */
