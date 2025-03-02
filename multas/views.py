@@ -3,7 +3,10 @@ from .models import Multa
 from django.db.models import Q
 from django.contrib.postgres.search import TrigramSimilarity
 
-def buscar_multas(request):
+def home(request):
+    return render(request, 'multas/home.html')
+
+def buscar(request):
     # Inicializa variáveis
     query = request.GET.get('q', '').strip()
     gravidade = request.GET.get('gravidade', '')
