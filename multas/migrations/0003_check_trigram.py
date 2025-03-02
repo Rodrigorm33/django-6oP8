@@ -7,7 +7,17 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunSQL(
-            sql="SELECT 1 FROM pg_extension WHERE extname = 'pg_trgm';",
-            reverse_sql="SELECT 1;"
+            sql="""
+            DO $$
+            BEGIN
+                IF NOT EXISTS (
+                    SELECT 1 FROM pg_extension WHERE extname = 'pg_trgm'
+                ) THEN
+                    CREATE EXTENSION IF NOT EXISTS pg_trgm;
+                END IF;
+            END
+            $$;
+            """,
+            reverse_sql="DROP EXTENSION IF EXISTS pg_trgm;"
         ),
     ] 
