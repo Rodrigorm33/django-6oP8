@@ -5,6 +5,9 @@ from django.db.models import Q
 def home(request):
     return render(request, 'multas/home.html')
 
+def index(request):
+    return render(request, 'multas/index.html')
+
 def buscar(request):
     # Inicializa variáveis
     query = request.GET.get('q', '').strip()
