@@ -1,4 +1,4 @@
-from django.contrib.postgres.operations import TrigramExtension, CreateExtension
+from django.contrib.postgres.operations import CreateExtension
 from django.db import migrations
 
 class Migration(migrations.Migration):
@@ -11,8 +11,18 @@ class Migration(migrations.Migration):
         CreateExtension('pg_trgm'),
         migrations.RunSQL(
             sql="""
-            CREATE INDEX IF NOT EXISTS multas_codigo_trgm_idx ON bdmultas10bd USING gin (codigo_infracao gin_trgm_ops);
-            CREATE INDEX IF NOT EXISTS multas_infracao_trgm_idx ON bdmultas10bd USING gin (infracao gin_trgm_ops);
+            DO $$
+            BEGIN
+                IF EXISTS (
+                    SELECT FROM information_schema.tables 
+                    WHERE table_schema = 'public' 
+                    AND table_name = 'bdmultas10bd'
+                ) THEN
+                    CREATE INDEX IF NOT EXISTS multas_codigo_trgm_idx ON bdmultas10bd USING gin (codigo_infracao gin_trgm_ops);
+                    CREATE INDEX IF NOT EXISTS multas_infracao_trgm_idx ON bdmultas10bd USING gin (infracao gin_trgm_ops);
+                END IF;
+            END
+            $$;
             """,
             reverse_sql="""
             DROP INDEX IF EXISTS multas_codigo_trgm_idx;
