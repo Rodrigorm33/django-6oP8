@@ -5,80 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <title>Sistema de Consulta de Multas</title>
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Animate.css -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{% static 'multas/css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-    <header class="header">
-        <div class="traffic-lights" aria-hidden="true">
-            <div class="traffic-light red"></div>
-            <div class="traffic-light yellow"></div>
-            <div class="traffic-light green"></div>
-        </div>
-        <div class="container">
-            <div class="hero">
-                <h1>Sistema de Consulta de Infrações</h1>
-                <p class="subtitle">Consulte informações sobre infrações de trânsito de forma rápida e fácil</p>
-            </div>
-        </div>
-    </header>
-
-    <div class="search-container">
-        <form method="GET" action="" role="search">
-            <label for="search-input" class="sr-only">Buscar infração</label>
-            <input type="text" 
-                   id="search-input"
-                   name="q" 
-                   class="search-box" 
-                   placeholder="Digite o código ou descrição da infração..."
-                   value="{{ request.GET.q|default:'' }}"
-                   autocomplete="off"
-                   title="Campo de busca de infrações">
-        </form>
-    </div>
-
-    <div class="results-container">
-        {% if request.GET.q %}
-            {% if multas %}
-                {% for multa in multas %}
-                    <div class="result animate__animated animate__fadeIn {{ multa.gravidade|lower }}" role="article">
-                        <div class="result-header">
-                            <span class="codigo">{{ multa.codigo_infracao }}</span>
-                            <span class="gravidade gravidade-{{ multa.gravidade|lower }}">
-                                {{ multa.gravidade }}
-                            </span>
-                        </div>
-                        <div class="result-body">
-                            <p class="result-description">{{ multa.infracao }}</p>
-                            <div class="info-grid">
-                                <div class="info-item">
-                                    <div class="info-label">Valor da Multa</div>
-                                    <div class="info-value">R$ {{ multa.valor_multa|floatformat:2 }}</div>
-                                </div>
-                                <div class="info-item">
-                                    <div class="info-label">Pontos na CNH</div>
-                                    <div class="info-value">{{ multa.pontos }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            {% else %}
-                <div class="no-results animate__animated animate__fadeIn" role="alert">
-                    <i class="fas fa-search no-results-icon"></i>
-                    <p>Nenhuma infração encontrada para sua busca.</p>
+    <div class="container">
+        <div class="search-container">
+            <h1>Sistema de Consulta de Infrações</h1>
+            <p>Consulte informações sobre infrações de trânsito</p>
+            
+            <form method="GET" action="" role="search">
+                <input type="text" 
+                       id="search-input"
+                       name="q" 
+                       class="search-input" 
+                       placeholder="Digite o código ou descrição da infração..."
+                       value="{{ request.GET.q|default:'' }}"
+                       autocomplete="off">
+                
+                <div class="filter-container">
+                    <button type="button" class="filter-button gravissima">Gravíssima</button>
+                    <button type="button" class="filter-button grave">Grave</button>
+                    <button type="button" class="filter-button media">Média</button>
+                    <button type="button" class="filter-button leve">Leve</button>
                 </div>
-            {% endif %}
-        {% endif %}
-    </div>
+            </form>
+        </div>
 
-    <!-- Font Awesome -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+        <div class="results">
+            {% if request.GET.q %}
+                {% if multas %}
+                    {% for multa in multas %}
+                        <div class="result-item {{ multa.gravidade|lower }}" role="article">
+                            <h3>{{ multa.codigo_infracao }}</h3>
+                            <p>{{ multa.infracao }}</p>
+                            <p><strong>Gravidade:</strong> {{ multa.gravidade }}</p>
+                            <p><strong>Valor:</strong> R$ {{ multa.valor_multa|floatformat:2 }}</p>
+                            <p><strong>Pontos:</strong> {{ multa.pontos }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="result-item">
+                        <p>Nenhuma infração encontrada para sua busca.</p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html> 
