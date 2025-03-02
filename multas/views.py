@@ -1,14 +1,6 @@
 from django.shortcuts import render
-from django.db import models
 from .models import Multa
-from django.db.models import Q, F, Value, Func, FloatField
-from django.db.models.functions import Cast, Greatest
-from django.contrib.postgres.search import TrigramSimilarity
-
-class WordSimilarity(Func):
-    function = 'word_similarity'
-    output_field = FloatField()
-    template = "%(function)s(%(expressions)s)"
+from django.db.models import Q
 
 def home(request):
     return render(request, 'multas/home.html')
@@ -20,21 +12,11 @@ def buscar(request):
     multas = []
     
     if query:
-        # Busca usando word_similarity para permitir erros de digitação
-        multas = Multa.objects.annotate(
-            codigo_str=Cast('codigo_infracao', output_field=models.TextField()),
-            similarity_codigo=WordSimilarity('codigo_str', Value(query)),
-            similarity_infracao=WordSimilarity('infracao', Value(query)),
-            similarity=Greatest(
-                F('similarity_codigo'),
-                F('similarity_infracao'),
-                Value(0.0, output_field=FloatField())
-            )
-        ).filter(
-            Q(similarity__gt=0.3) |  # Resultados com similaridade > 0.3
+        # Busca simples usando contains
+        multas = Multa.objects.filter(
             Q(codigo_infracao__icontains=query) |
             Q(infracao__icontains=query)
-        ).order_by('-similarity')
+        )
 
         # Filtro por gravidade se especificado
         if gravidade:
