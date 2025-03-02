@@ -1,205 +1,237 @@
 /* Variáveis de cores */
 :root {
-    --cor-primaria: #2196F3;
-    --cor-secundaria: #4CAF50;
-    --cor-gravissima: #ff4444;
-    --cor-grave: #9370DB;
-    --cor-media: #ffbb33;
-    --cor-leve: #00C851;
-    --cor-texto: #333;
-    --cor-texto-secundario: #666;
-    --cor-fundo: #f8f9fa;
-    --cor-branco: #ffffff;
+    --red-dark: #990000;
+    --red-light: #ff4444;
+    --yellow: #ffbb33;
+    --green: #00C851;
+    --background: #f7f9fc;
+    --text-primary: #1a1f36;
+    --text-secondary: #697386;
+    --border: #e3e8ee;
+    --white: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
 }
 
-/* Estilos gerais */
+/* Reset e estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: #f8f9fa;
-    padding-top: 2rem;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+    background: var(--background);
+    color: var(--text-primary);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
 
 /* Container principal */
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 2rem;
 }
 
-/* Container de pesquisa */
+/* Cabeçalho e título */
 .search-container {
-    background: white;
-    border-radius: 15px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px var(--shadow);
     padding: 2rem;
     margin-bottom: 2rem;
+    transform: translateY(0);
+    transition: var(--transition);
 }
 
-/* Título principal */
+.search-container:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
 h1 {
-    color: #2196F3 !important;
-    font-weight: 600 !important;
-    margin-bottom: 1.5rem !important;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.5px;
 }
 
 /* Campo de busca */
 .search-input {
-    border-radius: 25px !important;
-    padding: 0.8rem 1.5rem !important;
-    font-size: 1.1rem !important;
-    border: 2px solid #ddd !important;
-    transition: all 0.3s !important;
+    height: 48px;
+    border-radius: 12px !important;
+    border: 2px solid var(--border) !important;
+    padding: 0 1.5rem !important;
+    font-size: 1rem !important;
+    transition: var(--transition) !important;
+    background: var(--background) !important;
 }
 
 .search-input:focus {
-    border-color: #4CAF50 !important;
-    box-shadow: 0 0 0 0.2rem rgba(76,175,80,0.25) !important;
+    border-color: var(--text-primary) !important;
+    box-shadow: none !important;
 }
 
 /* Filtro de gravidade */
 .gravidade-filter {
-    border-radius: 20px !important;
-    padding: 0.5rem 1rem !important;
+    height: 48px;
+    border-radius: 12px !important;
+    border: 2px solid var(--border) !important;
+    background: var(--background) !important;
+    font-size: 1rem !important;
+    transition: var(--transition) !important;
+}
+
+.gravidade-filter:focus {
+    border-color: var(--text-primary) !important;
+    box-shadow: none !important;
 }
 
 /* Botão de busca */
 .btn-search {
-    border-radius: 50% !important;
-    width: 45px !important;
-    height: 45px !important;
-    padding: 0 !important;
+    width: 48px !important;
+    height: 48px !important;
+    border-radius: 12px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    background-color: #4CAF50 !important;
-    border-color: #4CAF50 !important;
+    background: linear-gradient(135deg, var(--text-primary), #434190) !important;
+    border: none !important;
+    transition: var(--transition) !important;
 }
 
 .btn-search:hover {
-    background-color: #45a049 !important;
-    border-color: #45a049 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(67, 65, 144, 0.2) !important;
 }
 
 /* Cards de resultado */
 .card {
     border: none !important;
-    border-radius: 10px !important;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
-    margin-bottom: 1rem !important;
-    transition: transform 0.2s !important;
-    background: white !important;
+    border-radius: 16px !important;
+    background: var(--white) !important;
+    box-shadow: 0 2px 8px var(--shadow) !important;
+    margin-bottom: 1.5rem !important;
+    transition: var(--transition) !important;
+    overflow: hidden !important;
+    border-left: 5px solid transparent !important;
 }
 
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px var(--shadow) !important;
 }
 
 /* Estilos específicos para cada gravidade */
 .gravissima {
-    border-left: 5px solid var(--cor-gravissima) !important;
-    background-color: rgba(255, 68, 68, 0.05) !important;
+    border-left-color: var(--red-dark) !important;
+    background: linear-gradient(to right, rgba(153,0,0,0.05), var(--white)) !important;
 }
 
 .grave {
-    border-left: 5px solid var(--cor-grave) !important;
-    background-color: rgba(147, 112, 219, 0.05) !important;
+    border-left-color: var(--red-light) !important;
+    background: linear-gradient(to right, rgba(255,68,68,0.05), var(--white)) !important;
 }
 
 .media {
-    border-left: 5px solid var(--cor-media) !important;
-    background-color: rgba(255, 187, 51, 0.05) !important;
+    border-left-color: var(--yellow) !important;
+    background: linear-gradient(to right, rgba(255,187,51,0.05), var(--white)) !important;
 }
 
 .leve {
-    border-left: 5px solid var(--cor-leve) !important;
-    background-color: rgba(0, 200, 81, 0.05) !important;
+    border-left-color: var(--green) !important;
+    background: linear-gradient(to right, rgba(0,200,81,0.05), var(--white)) !important;
 }
 
 /* Badges de gravidade */
 .gravidade-badge {
-    border-radius: 15px !important;
-    padding: 0.3rem 0.8rem !important;
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
     font-weight: 600 !important;
-    margin-left: 0.5rem !important;
+    padding: 0.35rem 0.75rem !important;
+    border-radius: 20px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
 }
 
 .badge-gravissima {
-    background-color: var(--cor-gravissima) !important;
-    color: white !important;
+    background: var(--red-dark) !important;
+    color: var(--white) !important;
 }
 
 .badge-grave {
-    background-color: var(--cor-grave) !important;
-    color: white !important;
+    background: var(--red-light) !important;
+    color: var(--white) !important;
 }
 
 .badge-media {
-    background-color: var(--cor-media) !important;
-    color: black !important;
+    background: var(--yellow) !important;
+    color: var(--text-primary) !important;
 }
 
 .badge-leve {
-    background-color: var(--cor-leve) !important;
-    color: white !important;
+    background: var(--green) !important;
+    color: var(--white) !important;
 }
 
 /* Botão de favoritos */
 .btn-favorite {
-    border: none !important;
     background: none !important;
-    color: #ffc107 !important;
-    font-size: 1.2rem !important;
-    transition: all 0.2s !important;
-    cursor: pointer !important;
+    border: none !important;
+    color: #ffd700 !important;
+    font-size: 1.25rem !important;
     padding: 0.5rem !important;
+    cursor: pointer !important;
+    transition: var(--transition) !important;
 }
 
 .btn-favorite:hover {
-    color: #ff9800 !important;
     transform: scale(1.2) !important;
+    color: #ffa000 !important;
 }
 
 /* Informações do card */
 .card-title {
-    color: #333 !important;
-    margin-bottom: 1rem !important;
+    font-size: 1.25rem !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    margin-bottom: 0.5rem !important;
 }
 
 .card-text {
-    color: #666 !important;
-    line-height: 1.5 !important;
+    color: var(--text-secondary) !important;
+    font-size: 1rem !important;
+    line-height: 1.6 !important;
 }
 
 .text-muted {
-    color: #888 !important;
+    color: var(--text-secondary) !important;
+    font-size: 0.875rem !important;
 }
 
 /* Mensagem de nenhum resultado */
 .alert-info {
-    background-color: #e3f2fd !important;
-    border-color: #90caf9 !important;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb) !important;
+    border: none !important;
     color: #0d47a1 !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .search-container {
-        padding: 1.5rem;
+    .container {
+        padding: 1rem;
     }
 
     h1 {
         font-size: 2rem;
     }
 
-    .btn-search {
-        width: 45px !important;
-        height: 45px !important;
-    }
-
-    .card-body {
-        padding: 1rem !important;
+    .search-container {
+        padding: 1.5rem;
     }
 }
 
@@ -207,7 +239,7 @@ h1 {
 @keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(10px);
     }
     to {
         opacity: 1;
@@ -215,6 +247,58 @@ h1 {
     }
 }
 
-.results-container {
+.animate__fadeIn {
     animation: fadeIn 0.5s ease-out;
+}
+
+/* Exemplos de sites que usam Django */
+.examples-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--white);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.examples-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--text-primary);
+}
+
+.examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.example-card {
+    background: var(--background);
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: var(--transition);
+}
+
+.example-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px var(--shadow);
+}
+
+.example-logo {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 1rem;
+}
+
+.example-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.example-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
 } 
