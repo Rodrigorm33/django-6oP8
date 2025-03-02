@@ -5,9 +5,10 @@ from django.db.models import Q, F, Value, Func, FloatField
 from django.db.models.functions import Cast, Greatest
 from django.contrib.postgres.search import TrigramSimilarity
 
-class Similarity(Func):
-    function = 'SIMILARITY'
+class WordSimilarity(Func):
+    function = 'word_similarity'
     output_field = FloatField()
+    template = "%(function)s(%(expressions)s)"
 
 def home(request):
     return render(request, 'multas/home.html')
@@ -19,11 +20,11 @@ def buscar(request):
     multas = []
     
     if query:
-        # Busca usando trigram similarity para permitir erros de digitação
+        # Busca usando word_similarity para permitir erros de digitação
         multas = Multa.objects.annotate(
             codigo_str=Cast('codigo_infracao', output_field=models.TextField()),
-            similarity_codigo=Similarity('codigo_str', Value(query)),
-            similarity_infracao=Similarity('infracao', Value(query)),
+            similarity_codigo=WordSimilarity('codigo_str', Value(query)),
+            similarity_infracao=WordSimilarity('infracao', Value(query)),
             similarity=Greatest(
                 F('similarity_codigo'),
                 F('similarity_infracao'),
