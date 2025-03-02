@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Multas</title>
+    <link rel="stylesheet" href="{% static 'multas/css/apple-style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1>Sistema de Multas</h1>
+            <nav>
+                <a href="{% url 'index' %}" class="button button-primary">Home</a>
+                <a href="{% url 'buscar' %}" class="button button-warning">Buscar</a>
+            </nav>
+        </div>
+    </header>
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
