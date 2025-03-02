@@ -10,7 +10,8 @@ class Command(BaseCommand):
         arquivo = 'bdmultas10bd.csv'
         
         try:
-            with open(arquivo, 'r', encoding='utf-8') as file:
+            # Mudando a codificação para latin1
+            with open(arquivo, 'r', encoding='latin1') as file:
                 # Usando ; como separador e ignorando espaços extras
                 reader = csv.DictReader(file, delimiter=';')
                 
