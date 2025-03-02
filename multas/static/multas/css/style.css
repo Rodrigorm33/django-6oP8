@@ -28,12 +28,10 @@
 
 body {
     font-family: 'Roboto', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
     margin: 0;
     padding: 0;
-    background: var(--color-background);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 /* Página inicial */
@@ -105,8 +103,7 @@ body {
 
 /* Container principal */
 .container {
-    width: 100%;
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
@@ -162,10 +159,21 @@ body {
 }
 
 .search-container {
-    background: white;
+    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.search-container h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.search-container p {
+    font-size: 16px;
     margin-bottom: 20px;
 }
 
@@ -173,14 +181,16 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-top: 20px;
 }
 
 .result-item {
-    background: white;
-    padding: 15px;
+    background-color: #fff;
+    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     border-left: 5px solid #ddd;
+    margin-bottom: 20px;
 }
 
 .result-item.gravissima {
@@ -204,33 +214,38 @@ body {
 }
 
 .result-item h3 {
-    margin: 0 0 10px 0;
+    font-size: 20px;
+    margin-bottom: 10px;
     color: var(--color-text);
 }
 
 .result-item p {
-    margin: 5px 0;
+    font-size: 16px;
+    margin-bottom: 5px;
     color: var(--color-text);
 }
 
 .filter-container {
     display: flex;
+    justify-content: space-around;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
 .filter-button {
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: 500;
-    transition: opacity 0.2s;
+    transition: background-color 0.3s;
+    background-color: #007bff;
+    color: #fff;
 }
 
 .filter-button:hover {
-    opacity: 0.9;
+    background-color: #0056b3;
 }
 
 .filter-button.gravissima {
@@ -254,11 +269,11 @@ body {
 }
 
 .search-input {
-    width: 100%;
+    width: calc(100% - 22px);
     padding: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-size: 16px;
 }
 
@@ -354,4 +369,4 @@ body {
 .example-description {
     font-size: 0.9rem;
     color: var(--text-secondary);
-} 
+}
