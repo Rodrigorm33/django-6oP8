@@ -1,12 +1,13 @@
 from django.shortcuts import render
+from django.db import models
 from .models import Multa
-from django.db.models import Q, F, Value, Func
-from django.db.models.functions import Greatest
+from django.db.models import Q, F, Value, Func, FloatField
+from django.db.models.functions import Cast, Greatest
 from django.contrib.postgres.search import TrigramSimilarity
 
 class Similarity(Func):
     function = 'SIMILARITY'
-    output_field = None
+    output_field = FloatField()
 
 def home(request):
     return render(request, 'multas/home.html')
@@ -20,12 +21,13 @@ def buscar(request):
     if query:
         # Busca usando trigram similarity para permitir erros de digitação
         multas = Multa.objects.annotate(
-            similarity_codigo=Similarity('codigo_infracao', Value(query)),
+            codigo_str=Cast('codigo_infracao', output_field=models.TextField()),
+            similarity_codigo=Similarity('codigo_str', Value(query)),
             similarity_infracao=Similarity('infracao', Value(query)),
             similarity=Greatest(
                 F('similarity_codigo'),
                 F('similarity_infracao'),
-                Value(0.0)
+                Value(0.0, output_field=FloatField())
             )
         ).filter(
             Q(similarity__gt=0.3) |  # Resultados com similaridade > 0.3
