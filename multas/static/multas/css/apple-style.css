@@ -109,3 +109,125 @@ th {
 tr:hover {
     background-color: #f5f5f5;
 }
+
+.search-container {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.search-input {
+    width: 100%;
+    max-width: 600px;
+    margin: 1rem 0;
+    padding: 12px 20px;
+    font-size: 16px;
+}
+
+.filter-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.filter-button {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: none;
+    background: #f5f5f7;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-button:hover {
+    background: #e5e5e7;
+}
+
+.filter-button.active {
+    background: var(--green);
+    color: white;
+}
+
+.results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+.result-item {
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: white;
+}
+
+.result-item.gravissima { border-left: 4px solid var(--red); }
+.result-item.grave { border-left: 4px solid var(--yellow); }
+.result-item.media { border-left: 4px solid orange; }
+.result-item.leve { border-left: 4px solid var(--green); }
+
+.search-box {
+    display: flex;
+    max-width: 600px;
+    margin: 1rem auto;
+    gap: 10px;
+}
+
+.search-button {
+    background: var(--green);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0 24px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-button:hover {
+    background: #2eb350;
+}
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.gravidade-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.gravidade-badge.gravissima { background: var(--red); color: white; }
+.gravidade-badge.grave { background: var(--yellow); color: var(--text); }
+.gravidade-badge.media { background: orange; color: white; }
+.gravidade-badge.leve { background: var(--green); color: white; }
+
+.infracao {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.result-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    background: #f5f5f7;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.no-results {
+    text-align: center;
+    padding: 2rem;
+    background: #f5f5f7;
+    border-radius: 12px;
+    grid-column: 1 / -1;
+}
